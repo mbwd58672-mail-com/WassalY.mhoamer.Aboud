@@ -102,8 +102,4 @@ jobs:
           name: Wassaly-Mohamed-Aboud-APK
           path: project/Wassaly_Final/android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
-المسار .github/workflows هو المكان الذي يتعرف فيه GitHub على ملفات Actions، وامتداد .yml صحيح. �
-والـ Gradle 8.11.1 مناسب لمشروعك الذي يستخدم Android Gradle Plugin 8.9. �
-GitHub Docs +١
-developer.android.com
-بعد ما تلصق الكود، ما تضغطش أي حاجة تانية. ابعتلي صورة الشاشة وأنا أقولك آخر ضغطة لحفظ الملف وتشغيل بناء الـAPK.
+المسار .github/اشة وأنا أقولك آخر ضغطة لحفظ الملف وتشغيل بناء الـAPK.
