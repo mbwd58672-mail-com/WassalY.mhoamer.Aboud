@@ -30,8 +30,11 @@ jobs:
 
       - name: Extract project
         run: |
+          rm -rf project
           mkdir -p project
           unzip -q wassaly_app.zip -d project
+          echo "=== Android folders found ==="
+          find project -type d -path '*/android' -print
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -39,12 +42,24 @@ jobs:
           gradle-version: '8.11.1'
 
       - name: Build APK
-        working-directory: project/Wassaly_Final/android
-        run: gradle assembleDebug --no-daemon
+        run: |
+          SETTINGS_FILE="$(find project -name settings.gradle.kts -print -quit)"
+
+          if [ -z "$SETTINGS_FILE" ]; then
+            echo "ERROR: Android project not found"
+            find project -maxdepth 6 -type f | head -200
+            exit 1
+          fi
+
+          ANDROID_DIR="$(dirname "$SETTINGS_FILE")"
+          echo "Building from: $ANDROID_DIR"
+
+          cd "$ANDROID_DIR"
+          gradle assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Wassaly-Mohamed-Aboud-APK
-          path: project/Wassaly_Final/android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
+          path: project/**/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error￼Enter
