@@ -1,4 +1,4 @@
-name: Build Flutter APK
+name: Buadb logcat *:E
 
 on:
   push:
