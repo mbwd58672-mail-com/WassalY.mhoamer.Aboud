@@ -1,0 +1,109 @@
+name: Build Wassaly APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+          yes | sdkmanager --licenses || true
+
+      - name: Extract project
+        run: |
+          mkdir -p project
+          unzip -q wassaly_app.zip -d project
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+
+      - name: Build APK
+        working-directory: project/Wassaly_Final/android
+        run: gradle assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Wassaly-Mohamed-Aboud-APK
+          path: project/Wassaly_Final/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+المسار .github/workflows هو المكان الذي يتعرف فيه GitHub على ملفات Actions، وامتداد .yml صحيح. �
+والـ Gradle 8.11.1 مناسب لمشروعك الذي يستخدم Android Gradle Plugin 8.9. �
+GitHub Docs +١
+developer.android.com
+بعد ما تلصق الكود، ما تضغطش أي حاجة تانية. ابعتلي صورة الشاشة وأنا أقولك آخر ضغطة لحفظ الملف وتشغيل بناء الـAPK.name: Build Wassaly APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+          yes | sdkmanager --licenses || true
+
+      - name: Extract project
+        run: |
+          mkdir -p project
+          unzip -q wassaly_app.zip -d project
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+
+      - name: Build APK
+        working-directory: project/Wassaly_Final/android
+        run: gradle assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Wassaly-Mohamed-Aboud-APK
+          path: project/Wassaly_Final/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+المسار .github/workflows هو المكان الذي يتعرف فيه GitHub على ملفات Actions، وامتداد .yml صحيح. �
+والـ Gradle 8.11.1 مناسب لمشروعك الذي يستخدم Android Gradle Plugin 8.9. �
+GitHub Docs +١
+developer.android.com
+بعد ما تلصق الكود، ما تضغطش أي حاجة تانية. ابعتلي صورة الشاشة وأنا أقولك آخر ضغطة لحفظ الملف وتشغيل بناء الـAPK.
